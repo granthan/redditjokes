@@ -14,7 +14,7 @@ def run_jokes():
     curr_index = 2
 
     while curr_index < len(joke_list) and continue_read:
-        print_jokes(joke_list[curr_index], joke_list[curr_index + 1])
+        print_jokes("\n" + joke_list[curr_index], joke_list[curr_index + 1])
         curr_index += 2
         if curr_index < len(joke_list):
             continue_read = read_input()
@@ -72,6 +72,8 @@ def read_jokes_csv(jokes_csv):
                         raise ValueError()
                     jokes_list.append(prompt);
                     jokes_list.append(punchline);
+                else:
+                    raise ValueError()
                 current_line += 1
     except FileNotFoundError:
             print("File not found. Check the location or name of the CSV file and try again.")
