@@ -21,7 +21,6 @@ def run_jokes():
 
     print()
     if continue_read:
-        time.sleep(2)
         print('End of jokes.')
     else:
         print('Ended due to user request.')
@@ -51,10 +50,10 @@ def read_jokes_reddit(subreddit):
     for joke in jokes_list:
         over_18 = joke['data']['over_18']
         joke_title = joke['data']['title']
+        punchline = joke['data']['selftext']
         is_question = joke_title.startswith(('Why', 'What', 'How')) and joke_title.endswith("?")
-        if not over_18 and is_question:
-            prompt, punchline = joke['data']['title'], joke['data']['selftext']
-            filtered_jokes.append(prompt)
+        if not over_18 and is_question and punchline:
+            filtered_jokes.append(joke_title)
             filtered_jokes.append(punchline)
     return filtered_jokes
 
