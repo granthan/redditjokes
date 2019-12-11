@@ -15,16 +15,18 @@ def run_jokes():
         print("Invalid jokes subreddit\n")
         run_jokes()
 
-    print_jokes(joke_list[0], joke_list[1])
+    continue_reveal = print_jokes(joke_list[0], joke_list[1])
 
     continue_read = read_input()
     curr_index = 2
 
     while curr_index < len(joke_list) and continue_read:
-        print_jokes("\n" + joke_list[curr_index], joke_list[curr_index + 1])
+        continue_reveal = print_jokes("\n" + joke_list[curr_index], joke_list[curr_index + 1])
         curr_index += 2
-        if curr_index < len(joke_list):
+        if continue_reveal:
             continue_read = read_input()
+        else:
+            continue_read = False
 
     print()
     if continue_read:
@@ -34,13 +36,26 @@ def run_jokes():
 
 def print_jokes(prompt, punchline):
     print(prompt)
-    time.sleep(2)
-    print(punchline + "\n")
+    reveal = reveal_answer()
+    if reveal:
+        print(punchline + "\n")
+    return reveal
+        
 
 def read_input():
     while True:
         inp = input("Type 'next' for next joke, or 'exit' to quit: ")
         if inp == 'next':
+            return True
+        elif inp == 'exit':
+            return False
+        else:
+            print("\n" + "I don't understand, please try again.")
+
+def reveal_answer():
+    while True:
+        inp = input("\nPress Enter to reveal the answer, or 'exit' to quit: \n")
+        if inp == '':
             return True
         elif inp == 'exit':
             return False
